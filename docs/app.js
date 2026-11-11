@@ -14,6 +14,11 @@ const niceDate = (d, opts = { month: "short", day: "numeric" }) => parseDate(d).
 const longDate = (d) => niceDate(d, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
 const norm = (s) => String(s ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 const MAX_SCORE = 7 * 85;
+// Krillion's day rolls over at midnight New York time. Answers for a day that
+// is still in progress stay hidden so we don't spoil it for late players.
+const todayNY = new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+const isLive = (day) => day.date >= todayNY;
+const finished = (days) => days.filter((d) => !isLive(d));
 
 // ---------- theme toggle ----------
 (function theme() {
@@ -138,10 +143,14 @@ function boardHtml(day) {
   const played = day.players.filter((p) => p.score != null);
   const skipped = day.players.filter((p) => p.score == null);
   if (!played.length) return `<div class="empty">Nobody has dived yet.</div>`;
-  return played.map((p) => `
+  const live = isLive(day);
+  return (live ? `<div class="not-played" style="padding:0 0 4px">🔒 Answers are hidden until the day ends (midnight ET) — no spoilers.</div>` : "") +
+    played.map((p) => `
     <div class="board-row">
       <div class="rank">#${p.rank}</div>
-      <details><summary>${who(p.username)}</summary>${p.answers ? catchList(p.answers) : ""}</details>
+      ${live || !p.answers
+        ? `<div style="line-height:36px">${who(p.username)}</div>`
+        : `<details><summary>${who(p.username)}</summary>${catchList(p.answers)}</details>`}
       <div class="board-score">${p.score}</div>
     </div>`).join("") +
     (skipped.length ? `<div class="not-played">Still on the surface: ${skipped.map((p) => "@" + esc(p.username)).join(", ")}</div>` : "");
@@ -152,6 +161,7 @@ function renderToday() {
   const d = S.days.at(-1);
   $("today-title").textContent = `Latest dive · ${longDate(d.date)}`;
   $("today").innerHTML = boardHtml(d);
+  $("today-hint").hidden = isLive(d);
 }
 
 function renderRecords() {
@@ -296,11 +306,11 @@ function renderLists() {
     .sort((a, b) => b.score - a.score || a.date.localeCompare(b.date)).slice(0, 10);
   $("top-scores").innerHTML = top.map((p, i) => `<div class="list-row"><div><span class="dim">${i + 1}.</span> ${who(p.username)}<div class="dim">${longDate(p.date)}</div></div><div class="board-score">${p.score}</div></div>`).join("") || `<div class="empty">No dives yet.</div>`;
 
-  const j = jinxes(S.days).slice(0, 12);
+  const j = jinxes(finished(S.days)).slice(0, 12);
   $("jinxes").innerHTML = j.map((x) => `<div class="list-row"><div><div class="catch-row"><div><div class="q">${esc(x.prompt)}</div><div class="a">“${esc(x.answer)}”</div></div></div>
     <div>${x.who.map((u) => sw(u) + "@" + esc(u)).join(" &nbsp;")}</div></div><div style="text-align:right">${tierLabel(x.tier)}<div class="dim">${niceDate(x.date)}</div></div></div>`).join("") || `<div class="empty">No jinxes yet — great minds haven't thought alike.</div>`;
 
-  const dc = loneDeepCuts(S.days).slice(0, 15);
+  const dc = loneDeepCuts(finished(S.days)).slice(0, 15);
   $("deepcuts").innerHTML = dc.map((x) => `<div class="list-row"><div><div class="q dim" style="font-size:11px;text-transform:uppercase;letter-spacing:.08em">${esc(x.prompt)}</div><div>“${esc(x.answer)}” <span class="dim">—</span> ${who(x.username)}</div></div><div class="dim">${niceDate(x.date)}</div></div>`).join("") || `<div class="empty">None yet.</div>`;
 }
 

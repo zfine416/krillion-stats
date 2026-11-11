@@ -2,8 +2,10 @@ name: Scrape leaderboard
 
 on:
   schedule:
-    # Hourly, so we catch late players before the daily board resets.
-    - cron: "17 * * * *"
+    # Krillion's day resets at midnight America/New_York. We want 11pm ET, but
+    # cron is UTC with no DST, so fire at both 03:05 and 04:05 UTC and let the
+    # guard below skip whichever one isn't 11pm in New York.
+    - cron: "5 3,4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -18,15 +20,29 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Only run at 11pm New York time (scheduled runs)
+        id: guard
+        run: |
+          hour=$(TZ=America/New_York date +%H)
+          echo "New York hour: $hour"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$hour" != "23" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.guard.outputs.run == 'true'
+        uses: actions/checkout@v4
+      - if: steps.guard.outputs.run == 'true'
+        uses: actions/setup-node@v4
         with:
           node-version: 22
       - name: Fetch friends leaderboard
+        if: steps.guard.outputs.run == 'true'
         env:
           KRILLION_REFRESH_TOKEN: ${{ secrets.KRILLION_REFRESH_TOKEN }}
         run: node scripts/scrape.mjs
       - name: Commit changes
+        if: steps.guard.outputs.run == 'true'
         run: |
           git add docs/data
           if git diff --cached --quiet; then

@@ -4,9 +4,10 @@ All-time stats for our [Krillion](https://krillion.io) friends leaderboard.
 
 ## How it works
 
-- **`scripts/scrape.mjs`** runs hourly in GitHub Actions. It exchanges a Firebase refresh token for an ID token, calls `https://krillion.io/api/friends` (the same API the `/friends` page uses), and merges the result into `docs/data/days/YYYY-MM-DD.json`. It then rebuilds `docs/data/all.json`.
+- **`scripts/scrape.mjs`** runs nightly at 11pm New York time in GitHub Actions. Krillion's day resets at midnight ET, so this gives everyone time to play. It exchanges a Firebase refresh token for an ID token, calls `https://krillion.io/api/friends` (the same API the `/friends` page uses), and merges the result into `docs/data/days/YYYY-MM-DD.json`. It then rebuilds `docs/data/all.json`.
   - Several scrapes on the same day merge together, and a score never goes back to "not played".
   - The account's profile and invite token are dropped. Only usernames, scores, and answers are saved.
+- The site hides a day's answers until that day is over (midnight ET), so nobody gets spoiled. The raw JSON in the repo is still public.
 - **`docs/`** is a static site served by GitHub Pages. `app.js` computes all stats in the browser from `all.json`.
 - **Storage is git.** Every change is a commit, so you get full history for free.
 
