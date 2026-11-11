@@ -2,10 +2,10 @@ name: Scrape leaderboard
 
 on:
   schedule:
-    # Krillion's day resets at midnight America/New_York. We want 11pm ET, but
-    # cron is UTC with no DST, so fire at both 03:05 and 04:05 UTC and let the
-    # guard below skip whichever one isn't 11pm in New York.
-    - cron: "5 3,4 * * *"
+    # Krillion's day resets at midnight America/New_York. We want 10pm ET (backup)
+    # and 11pm ET (main). Cron is UTC with no DST, so fire at 02:05, 03:05 and
+    # 04:05 UTC and let the guard below skip any run that isn't 10pm/11pm in New York.
+    - cron: "5 2,3,4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -20,12 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Only run at 11pm New York time (scheduled runs)
+      - name: Only run at 10pm/11pm New York time (scheduled runs)
         id: guard
         run: |
           hour=$(TZ=America/New_York date +%H)
           echo "New York hour: $hour"
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "$hour" != "23" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$hour" != "22" ] && [ "$hour" != "23" ]; then
             echo "run=false" >> "$GITHUB_OUTPUT"
           else
             echo "run=true" >> "$GITHUB_OUTPUT"
