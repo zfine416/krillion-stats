@@ -1,0 +1,222 @@
+{
+  "date": "2026-11-11",
+  "prompts": [
+    "Name a country where at least 50% of people speak English",
+    "Name a bodily function or biological process (like breathing)",
+    "Name a one-word animal that starts with T",
+    "Name something that has a needle",
+    "Name an original movie or show from Netflix, Prime Video, Apple TV, or Disney+",
+    "Name a named object in space that's bigger than Earth's Moon (like Jupiter)",
+    "Name a character from Mario, Zelda, Donkey Kong, Sonic, or Kirby"
+  ],
+  "players": [
+    {
+      "username": "doctor_krill",
+      "score": 520,
+      "answers": [
+        {
+          "prompt": "Name a country where at least 50% of people speak English",
+          "answer": "Solomon Islands",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a bodily function or biological process (like breathing)",
+          "answer": "Cerebrospinal fluid production",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a one-word animal that starts with T",
+          "answer": "Tapir",
+          "score": 60,
+          "tier": "rare"
+        },
+        {
+          "prompt": "Name something that has a needle",
+          "answer": "Blood collection set",
+          "score": 60,
+          "tier": "rare"
+        },
+        {
+          "prompt": "Name an original movie or show from Netflix, Prime Video, Apple TV, or Disney+",
+          "answer": "Nocturne",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a named object in space that's bigger than Earth's Moon (like Jupiter)",
+          "answer": "Orion Nebula",
+          "score": 60,
+          "tier": "rare"
+        },
+        {
+          "prompt": "Name a character from Mario, Zelda, Donkey Kong, Sonic, or Kirby",
+          "answer": "Sam",
+          "score": 85,
+          "tier": "deepcut"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "username": "idi0tsammich",
+      "score": 385,
+      "answers": [
+        {
+          "prompt": "Name a country where at least 50% of people speak English",
+          "answer": "Italy",
+          "score": 30,
+          "tier": "schooler"
+        },
+        {
+          "prompt": "Name a bodily function or biological process (like breathing)",
+          "answer": "Oxytocin synthesis",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a one-word animal that starts with T",
+          "answer": "Tarpon",
+          "score": 60,
+          "tier": "rare"
+        },
+        {
+          "prompt": "Name something that has a needle",
+          "answer": "Speedometer",
+          "score": 30,
+          "tier": "schooler"
+        },
+        {
+          "prompt": "Name an original movie or show from Netflix, Prime Video, Apple TV, or Disney+",
+          "answer": "ZeroZeroZero",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a named object in space that's bigger than Earth's Moon (like Jupiter)",
+          "answer": "Saturn",
+          "score": 10,
+          "tier": "plankton"
+        },
+        {
+          "prompt": "Name a character from Mario, Zelda, Donkey Kong, Sonic, or Kirby",
+          "answer": "Sphynx",
+          "score": 85,
+          "tier": "deepcut"
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "username": "deepseaman69",
+      "score": 330,
+      "answers": [
+        {
+          "prompt": "Name a country where at least 50% of people speak English",
+          "answer": "Saint Kitts and Nevis",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a bodily function or biological process (like breathing)",
+          "answer": "Queefing",
+          "score": 60,
+          "tier": "rare"
+        },
+        {
+          "prompt": "Name a one-word animal that starts with T",
+          "answer": null,
+          "score": 0,
+          "tier": null
+        },
+        {
+          "prompt": "Name something that has a needle",
+          "answer": "Ball pump",
+          "score": 60,
+          "tier": "rare"
+        },
+        {
+          "prompt": "Name an original movie or show from Netflix, Prime Video, Apple TV, or Disney+",
+          "answer": "The Mandalorian",
+          "score": 10,
+          "tier": "plankton"
+        },
+        {
+          "prompt": "Name a named object in space that's bigger than Earth's Moon (like Jupiter)",
+          "answer": "Su",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a character from Mario, Zelda, Donkey Kong, Sonic, or Kirby",
+          "answer": "Knuckles",
+          "score": 30,
+          "tier": "schooler"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "username": "licensetokrill69",
+      "score": 295,
+      "answers": [
+        {
+          "prompt": "Name a country where at least 50% of people speak English",
+          "answer": "South Africa",
+          "score": 30,
+          "tier": "schooler"
+        },
+        {
+          "prompt": "Name a bodily function or biological process (like breathing)",
+          "answer": "Ejaculation",
+          "score": 30,
+          "tier": "schooler"
+        },
+        {
+          "prompt": "Name a one-word animal that starts with T",
+          "answer": "Trilobite",
+          "score": 60,
+          "tier": "rare"
+        },
+        {
+          "prompt": "Name something that has a needle",
+          "answer": "Speedometer",
+          "score": 30,
+          "tier": "schooler"
+        },
+        {
+          "prompt": "Name an original movie or show from Netflix, Prime Video, Apple TV, or Disney+",
+          "answer": "Tehran",
+          "score": 85,
+          "tier": "deepcut"
+        },
+        {
+          "prompt": "Name a named object in space that's bigger than Earth's Moon (like Jupiter)",
+          "answer": "Milky Way",
+          "score": 30,
+          "tier": "schooler"
+        },
+        {
+          "prompt": "Name a character from Mario, Zelda, Donkey Kong, Sonic, or Kirby",
+          "answer": "Toad",
+          "score": 30,
+          "tier": "schooler"
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "username": "drewsolver",
+      "score": null,
+      "answers": null,
+      "rank": null
+    },
+    {
+      "username": "tom_danks",
+      "score": null,
+      "answers": null,
+      "rank": null
+    }
+  ]
+}

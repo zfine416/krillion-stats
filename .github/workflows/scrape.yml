@@ -1,0 +1,39 @@
+name: Scrape leaderboard
+
+on:
+  schedule:
+    # Hourly, so we catch late players before the daily board resets.
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch friends leaderboard
+        env:
+          KRILLION_REFRESH_TOKEN: ${{ secrets.KRILLION_REFRESH_TOKEN }}
+        run: node scripts/scrape.mjs
+      - name: Commit changes
+        run: |
+          git add docs/data
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "krillion-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data: $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
